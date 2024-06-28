@@ -3,6 +3,7 @@ package com.sandrm.demo.treatment.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 @Table(name="treatment_task")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TreatmentTask {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
