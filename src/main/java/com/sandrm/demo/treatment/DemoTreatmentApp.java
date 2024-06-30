@@ -7,8 +7,14 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 @SpringBootApplication
 public class DemoTreatmentApp implements ApplicationRunner {
+
+    public static final int DAYS_TO_ADD = 1;
 
     public static void main(String[] args) {
 
@@ -20,6 +26,10 @@ public class DemoTreatmentApp implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        taskGenerator.execute();
+        LocalDate todayDate = LocalDate.now();
+        LocalDate treatmentLocalDate = todayDate.plusDays(DAYS_TO_ADD);
+        Date treatmentDate1 = Date.from(treatmentLocalDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
+        taskGenerator.execute(treatmentDate1);
     }
 }

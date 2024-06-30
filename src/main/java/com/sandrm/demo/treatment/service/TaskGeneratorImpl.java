@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+
+import static com.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 
 
 @RequiredArgsConstructor
@@ -30,26 +29,41 @@ public class TaskGeneratorImpl implements TaskGenerator {
      * After could be used some period, like several days
      */
     @Override
-    public void execute() {
-        LocalDate todayDate = LocalDate.now();
-        LocalDate treatmentDay = todayDate.plusDays(1);
+    public void execute(Date treatmentDate) {
+        //TODO delete all tasks for treatmentDate
 
-        Date treatmentDate = Date.from(treatmentDay.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        List<TreatmentPlan> result = planRepository.getPlanForDate(treatmentDate);
+        List<TreatmentPlan> plans = planRepository.getPlanForDate(treatmentDate);
 
-        //Create Tasks
-        //TODO apply Parse Reccurence using Parser
-        for (TreatmentPlan plan : result) {
-            TreatmentTask treatmentTask = new TreatmentTask();
+        String dayName = getDayName(treatmentDate);
+        String firstPart = MAP_DAYS_OF_WEEK.get(dayName);
 
-            treatmentTask.setAction(plan.getAction());
-            //TODO get Date time from Recurrence pattern field
-            treatmentTask.setStartTime(Timestamp.valueOf(LocalDateTime.now()));
-            treatmentTask.setSubjectPatient(plan.getSubjectPatient());
-            treatmentTask.setActive(true);
-
-            taskRepository.save(treatmentTask);
+        //Generate Tasks
+        for (TreatmentPlan plan : plans) {
+            String recurrencePattern = plan.getRecurrencePattern();
+            if (recurrencePattern.contains(firstPart)) {
+                generateTask(treatmentDate, plan, recurrencePattern, firstPart);
+            }
+            if (recurrencePattern.contains(EVERY_DAY_AT)) {
+                generateTask(treatmentDate, plan, recurrencePattern, EVERY_DAY_AT);
+            }
         }
+    }
 
+    private void generateTask(Date treatmentDate, TreatmentPlan plan,
+                              String recurrencePattern, String firstPartOfPattern) {
+
+        Date taskStartTime = setTimeTimeForTreatmentDate(
+                recurrencePattern,
+                firstPartOfPattern,
+                treatmentDate);
+
+        TreatmentTask treatmentTask = new TreatmentTask();
+
+        treatmentTask.setAction(plan.getAction());
+        treatmentTask.setStartTime(new Timestamp(taskStartTime.getTime()));
+        treatmentTask.setSubjectPatient(plan.getSubjectPatient());
+        treatmentTask.setActive(true);
+
+        taskRepository.save(treatmentTask);
     }
 }
