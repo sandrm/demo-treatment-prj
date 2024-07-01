@@ -1,6 +1,6 @@
-package com.sandrm.demo.treatment.repository;
+package org.sandrm.demo.treatment.repository;
 
-import com.sandrm.demo.treatment.model.TreatmentPlan;
+import org.sandrm.demo.treatment.model.TreatmentPlan;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

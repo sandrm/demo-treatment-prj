@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.sandrm</groupId>
+	<groupId>org.sandrm</groupId>
 	<artifactId>demo.treatment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo.treatment</name>

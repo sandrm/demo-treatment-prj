@@ -1,6 +1,6 @@
-package com.sandrm.demo.treatment;
+package org.sandrm.demo.treatment;
 
-import com.sandrm.demo.treatment.service.RecurrencePatternParser;
+import org.sandrm.demo.treatment.service.RecurrencePatternParser;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;

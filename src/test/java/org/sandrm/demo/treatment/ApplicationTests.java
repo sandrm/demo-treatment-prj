@@ -1,4 +1,4 @@
-package com.sandrm.demo.treatment;
+package org.sandrm.demo.treatment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

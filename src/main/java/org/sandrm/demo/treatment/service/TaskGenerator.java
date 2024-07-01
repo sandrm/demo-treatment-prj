@@ -1,4 +1,4 @@
-package com.sandrm.demo.treatment.service;
+package org.sandrm.demo.treatment.service;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
-package com.sandrm.demo.treatment;
+package org.sandrm.demo.treatment;
 
-import com.sandrm.demo.treatment.service.TaskGenerator;
+import org.sandrm.demo.treatment.service.TaskGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

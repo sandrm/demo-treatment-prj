@@ -1,9 +1,9 @@
-package com.sandrm.demo.treatment.service;
+package org.sandrm.demo.treatment.service;
 
-import com.sandrm.demo.treatment.model.TreatmentPlan;
-import com.sandrm.demo.treatment.model.TreatmentTask;
-import com.sandrm.demo.treatment.repository.TreatmentPlanRepository;
-import com.sandrm.demo.treatment.repository.TreatmentTaskRepository;
+import org.sandrm.demo.treatment.model.TreatmentPlan;
+import org.sandrm.demo.treatment.model.TreatmentTask;
+import org.sandrm.demo.treatment.repository.TreatmentPlanRepository;
+import org.sandrm.demo.treatment.repository.TreatmentTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static com.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 
 
 @RequiredArgsConstructor
@@ -37,8 +35,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
 
         List<TreatmentPlan> plans = planRepository.getPlanForDate(treatmentDate);
 
-        String dayName = getDayName(treatmentDate);
-        String firstPart = MAP_DAYS_OF_WEEK.get(dayName);
+        String dayName = RecurrencePatternParser.getDayName(treatmentDate);
+        String firstPart = RecurrencePatternParser.MAP_DAYS_OF_WEEK.get(dayName);
 
         //Generate Tasks
         for (TreatmentPlan plan : plans) {
@@ -46,8 +44,8 @@ public class TaskGeneratorImpl implements TaskGenerator {
             if (recurrencePattern.contains(firstPart)) {
                 generateTask(treatmentDate, plan, recurrencePattern, firstPart);
             }
-            if (recurrencePattern.contains(EVERY_DAY_AT)) {
-                generateTask(treatmentDate, plan, recurrencePattern, EVERY_DAY_AT);
+            if (recurrencePattern.contains(RecurrencePatternParser.EVERY_DAY_AT)) {
+                generateTask(treatmentDate, plan, recurrencePattern, RecurrencePatternParser.EVERY_DAY_AT);
             }
         }
     }
@@ -55,7 +53,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
     private void generateTask(Date treatmentDate, TreatmentPlan plan,
                               String recurrencePattern, String firstPartOfPattern) {
 
-        Date taskStartTime = setTimeTimeForTreatmentDate(
+        Date taskStartTime = RecurrencePatternParser.setTimeTimeForTreatmentDate(
                 recurrencePattern,
                 firstPartOfPattern,
                 treatmentDate);
