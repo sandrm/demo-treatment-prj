@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,9 @@ public class TaskGeneratorImpl implements TaskGenerator {
      */
     @Override
     public void execute(Date treatmentDate) {
-        //TODO delete all tasks for treatmentDate
+        SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dmy = dmyFormat.format(treatmentDate);
+        taskRepository.deleteForDate(dmy);
 
         List<TreatmentPlan> plans = planRepository.getPlanForDate(treatmentDate);
 

@@ -26,6 +26,9 @@ public class DemoTreatmentApp implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        /*
+         * TODO It can be run by scheduler or in other way instead ApplicationRunner
+         */
         LocalDate todayDate = LocalDate.now();
         LocalDate treatmentLocalDate = todayDate.plusDays(DAYS_TO_ADD);
         Date treatmentDate1 = Date.from(treatmentLocalDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
