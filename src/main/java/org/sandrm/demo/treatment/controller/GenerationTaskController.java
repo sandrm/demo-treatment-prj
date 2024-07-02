@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * http://localhost:8080/api/generateTasks?plusDays=2
+ */
 @RestController
 @RequestMapping("/api")
 public class GenerationTaskController {
