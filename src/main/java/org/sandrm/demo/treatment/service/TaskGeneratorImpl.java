@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 
@@ -21,6 +23,8 @@ import static org.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 @RequiredArgsConstructor
 @Service
 public class TaskGeneratorImpl implements TaskGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(TaskGeneratorImpl.class);
+
     public static final String AND = " and ";
     static String regEx_HH_MM = "([0-1]?[0-9]|2[0-3]):[0-5][0-9]";  //08:00
     static String patternType1 = "^every day at " + regEx_HH_MM + "$";  //every day at 08:00
@@ -40,6 +44,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
      */
     @Override
     public void execute(Date treatmentDate) {
+        logger.info("Processing Plans for date: " + treatmentDate);
 
         SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dmy = dmyFormat.format(treatmentDate);
@@ -103,5 +108,7 @@ public class TaskGeneratorImpl implements TaskGenerator {
         treatmentTask.setActive(true);
 
         taskRepository.save(treatmentTask);
+
+        logger.info("For Treatment Plan ID = " + plan.getId() + " created Task with ID = " + treatmentTask.getId());
     }
 }
