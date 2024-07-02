@@ -40,9 +40,7 @@ public class RecurrencePatternParser {
         return dayName;
     }
 
-
-    public static Date setTimeTimeForTreatmentDate(String recurrencePattern, String patternOfDay, Date treatmentDay) {
-        String[] time = getTimeFromRecurrencePattern(recurrencePattern, patternOfDay);
+    public static Date setTimeTimeForTreatmentDate(Date treatmentDay, String[] time) {
         Calendar c = Calendar.getInstance();
         c.setTime(treatmentDay);
 
@@ -54,10 +52,9 @@ public class RecurrencePatternParser {
         return c.getTime();
     }
 
-    public static String[] getTimeFromRecurrencePattern(String recurrencePattern, String patternOfDay) {
-        String time_HH_MM = recurrencePattern.replaceFirst(patternOfDay, "");
-        String[] time = time_HH_MM.substring(0, 5).split(":");
 
+    public static String[] convertHHMM(String time_HH_MM) {
+        String[] time = time_HH_MM.substring(0, 5).split(":");
         return time;
     }
 }
