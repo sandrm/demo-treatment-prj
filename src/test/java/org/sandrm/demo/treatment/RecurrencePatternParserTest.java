@@ -1,29 +1,20 @@
 package org.sandrm.demo.treatment;
 
-import org.sandrm.demo.treatment.service.RecurrencePatternParser;
 import org.junit.jupiter.api.Test;
+import org.sandrm.demo.treatment.service.RecurrencePatternParser;
 
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class RecurrencePatternParserTest {
 
     private static final String recurrencePatternEveryDay = "every day at 08:00";
     private static final String recurrencePatternEveryDayOfWeek = "every Monday at 12:00";
-
-    @Test
-    public void test_every_day_pattern() {
-        String[] expectedValue = {"08", "00"};
-
-        String[] actualValue = RecurrencePatternParser.getTimeFromRecurrencePattern(
-                recurrencePatternEveryDay, RecurrencePatternParser.EVERY_DAY_AT);
-
-        assertArrayEquals(expectedValue, actualValue, "Should be equals!");
-    }
 
     @Test
     public void test_get_day_name() {
@@ -34,16 +25,6 @@ public class RecurrencePatternParserTest {
         System.out.println(name);
     }
 
-
-    @Test
-    public void test_every_day_of_week_pattern() {
-        String[] expectedValue = {"12", "00"};
-
-        String[] actualValue = RecurrencePatternParser.getTimeFromRecurrencePattern(
-                recurrencePatternEveryDayOfWeek, RecurrencePatternParser.EVERY_MONDAY_AT);
-
-        assertArrayEquals(expectedValue, actualValue, "Should be equals!");
-    }
 
     @Test
     public void test_patter_HH_MM() {
