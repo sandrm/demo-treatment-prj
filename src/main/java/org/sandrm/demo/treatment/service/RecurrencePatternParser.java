@@ -4,40 +4,33 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Pattern;
 
-/*
-    TODO it needs fix for more complex patterns like "every day at 08:00 and 16:00"
-*/
+/**
+ * Recurrence pattern: for example:
+ * “every day at 08:00 and 16:00”
+ * “every Monday at 12:00”
+ */
 public class RecurrencePatternParser {
+    public static final String AND = " and ";
+    static String regEx_HH_MM = "([0-1]?[0-9]|2[0-3]):[0-5][0-9]";  //08:00
     public static String EVERY_DAY_AT = "every day at ";
-    public static String EVERY_MONDAY_AT = "every Monday at ";
-    public static String EVERY_TUESDAY_AT = "every Tuesday at ";
-    public static String EVERY_WEDNESDAY_AT = "every Wednesday at ";
-    public static String EVERY_THURSDAY_AT = "every Thursday at ";
-    public static String EVERY_FRIDAY_AT = "every Friday at ";
-    public static String EVERY_SATURDAY_AT = "every Saturday at ";
-    public static String EVERY_SUNDAY_AT = "every Sunday at ";
-
-    public static Map<String, String> MAP_DAYS_OF_WEEK = new HashMap<>();
-
-    static {
-        MAP_DAYS_OF_WEEK.put("Monday", EVERY_MONDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Tuesday", EVERY_TUESDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Wednesday", EVERY_WEDNESDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Thursday", EVERY_THURSDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Friday", EVERY_FRIDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Saturday", EVERY_SATURDAY_AT);
-        MAP_DAYS_OF_WEEK.put("Sunday", EVERY_SUNDAY_AT);
-    }
-
+    public static String PATTERN_TYPE_TWO = "^every day at " + regEx_HH_MM + AND + regEx_HH_MM + "$";  //every day at 08:00 and 16:00
+    public static String PATTERN_TYPE_TWO_BEFORE_TIME2 = "every day at " + regEx_HH_MM + AND;  //"every day at 08:00 and "
+    public static Pattern PATTERN_TYPE_TWO_COMPILED = Pattern.compile(PATTERN_TYPE_TWO);
+    public static String DAY_OF_WEEK = "(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)";
+    public static Pattern PATTERN_DAY_OF_WEEK_COMPILED =
+            Pattern.compile("^every " + DAY_OF_WEEK + " at " + regEx_HH_MM + "$");
 
     public static String getDayName(Date treatmentDay) {
         Format f = new SimpleDateFormat("EEEE");
         String dayName = f.format(treatmentDay);
 
         return dayName;
+    }
+
+    public static String getFirstPartOfPatternType2(String dayOfWeekName) {
+        return "every " + dayOfWeekName + " at ";
     }
 
     public static Date setTimeTimeForTreatmentDate(Date treatmentDay, String[] time) {

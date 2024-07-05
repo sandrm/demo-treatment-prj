@@ -5,6 +5,8 @@ import org.sandrm.demo.treatment.model.TreatmentPlan;
 import org.sandrm.demo.treatment.model.TreatmentTask;
 import org.sandrm.demo.treatment.repository.TreatmentPlanRepository;
 import org.sandrm.demo.treatment.repository.TreatmentTaskRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 
@@ -24,14 +23,6 @@ import static org.sandrm.demo.treatment.service.RecurrencePatternParser.*;
 @Service
 public class TaskGeneratorImpl implements TaskGenerator {
     private static final Logger logger = LoggerFactory.getLogger(TaskGeneratorImpl.class);
-
-    public static final String AND = " and ";
-    static String regEx_HH_MM = "([0-1]?[0-9]|2[0-3]):[0-5][0-9]";  //08:00
-    static String patternType1 = "^every day at " + regEx_HH_MM + "$";  //every day at 08:00
-    static Pattern patternTypeOne = Pattern.compile(patternType1);
-    static String patternType2 = "^every day at " + regEx_HH_MM + AND + regEx_HH_MM + "$";  //every day at 08:00 and 16:00
-    static Pattern patternTypeTwo = Pattern.compile(patternType2);
-    static String patternType2_BeforeTime2 = "every day at " + regEx_HH_MM  + AND;  //"every day at 08:00 and "
 
     @Autowired
     TreatmentPlanRepository planRepository;
@@ -57,32 +48,20 @@ public class TaskGeneratorImpl implements TaskGenerator {
         for (TreatmentPlan plan : plans) {
             String recurrencePattern = plan.getRecurrencePattern();
 
-            if (recurrencePattern.contains(EVERY_DAY_AT)) {
-                Matcher matcher = patternTypeOne.matcher(recurrencePattern);
-                if (matcher.find()) {
-                    generateTask(plan, treatmentDate, EVERY_DAY_AT);
-                    continue;
-                }
+            Matcher matcherTwo = PATTERN_TYPE_TWO_COMPILED.matcher(recurrencePattern);
+            if (matcherTwo.find()) {
+                generateTask(plan, treatmentDate, EVERY_DAY_AT);
 
-                Matcher matcherTwo = patternTypeTwo.matcher(recurrencePattern);
-                if (matcherTwo.find()) {
-                    generateTask(plan, treatmentDate, EVERY_DAY_AT);
-
-                    generateTask(plan, treatmentDate, patternType2_BeforeTime2);
-
-                    continue;
-                }
+                generateTask(plan, treatmentDate, PATTERN_TYPE_TWO_BEFORE_TIME2);
+                continue;
             }
 
 
-            String dayName = RecurrencePatternParser.getDayName(treatmentDate);
-            String firstPartOfPattern = RecurrencePatternParser.MAP_DAYS_OF_WEEK.get(dayName);
-
-            if (recurrencePattern.contains(firstPartOfPattern)) {
-                String patternDayOfWeek = "^every " + dayName + " at " + regEx_HH_MM + "$";
-                Pattern pattern = Pattern.compile(patternDayOfWeek);
-                Matcher matcher = pattern.matcher(recurrencePattern);
-                if (matcher.find()) {
+            Matcher matcher = PATTERN_DAY_OF_WEEK_COMPILED.matcher(recurrencePattern);
+            if (matcher.find()) {
+                String dayName = getDayName(treatmentDate);
+                String firstPartOfPattern = getFirstPartOfPatternType2(dayName);
+                if (recurrencePattern.contains(firstPartOfPattern)) {
                     generateTask(plan, treatmentDate, firstPartOfPattern);
                 }
             }
