@@ -1,21 +1,20 @@
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (1, 'ActionA', 'Ivan Petrov', {ts '2024-06-25 12:30:00.69'},{ts '2024-06-30 13:00:00.69'}, 'every Monday at 12:00');
+VALUES (1, 'ActionB', 'Ivan Petrov', {ts '2024-07-01 17:30:00.69'},{ts '2024-07-10 18:00:00.69'}, 'every day at 08:00 and 16:00');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (2, 'ActionB', 'Ivan Petrov', {ts '2024-06-25 17:30:00.69'},{ts '2024-06-30 18:00:00.69'}, 'every day at 08:00');
+VALUES (2, 'ActionA', 'Ivan Petrov', {ts '2024-06-25 12:30:00.69'},{ts '2024-06-30 13:00:00.69'}, 'every Monday at 12:00');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (3, 'ActionA', 'Serhey Sidorov', {ts '2024-06-25 13:30:00.69'},{ts '2024-07-10 14:00:00.69'}, 'every Tuesday at 13:00');
+VALUES (3, 'ActionB', 'Julia Ovcharuk', {ts '2024-07-01 17:30:00.69'},{ts '2024-07-30 18:00:00.69'}, 'every day at 09:30 and 16:30');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (4, 'ActionA', 'Serhey Sidorov', {ts '2024-07-01 13:30:00.69'},{ts '2024-07-10 14:00:00.69'}, 'every day at 08:00');
+VALUES (4, 'ActionA', 'Serhey Sidorov', {ts '2024-06-25 13:30:00.69'},{ts '2024-07-10 14:00:00.69'}, 'every Tuesday at 13:00');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
 VALUES (5, 'ActionA', 'Ivan Petrov', {ts '2024-06-20 13:30:00.69'},{ts '2024-07-10 14:00:00.69'}, 'every Wednesday at 13:00');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (6, 'ActionB', 'Ivan Petrov', {ts '2024-06-20 13:30:00.69'},{ts '2024-07-10 14:00:00.69'}, 'every day at 15:00');
+VALUES (6, 'ActionA', 'Ivan Petrov', {ts '2024-06-20 13:30:00.69'},{ts '2024-07-30 14:00:00.69'}, 'every Friday at 14:00');
 
 INSERT INTO TREATMENT_PLAN (ID, ACTION, SUBJECT_PATIENT, START_TIME, END_TIME,  RECURRENCE_PATTERN)
-VALUES (7, 'ActionB', 'Ivan Petrov', {ts '2024-07-01 17:30:00.69'},{ts '2024-07-10 18:00:00.69'}, 'every day at 08:00 and 16:00');
-
+VALUES (7, 'ActionB', 'John Smith', {ts '2024-06-20 13:30:00.69'},{ts '2024-07-30 14:00:00.69'}, 'every Saturday at 14:20');
