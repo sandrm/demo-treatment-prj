@@ -49,14 +49,15 @@ public class TaskGeneratorImpl implements TaskGenerator {
         for (TreatmentPlan plan : plans) {
             String recurrencePattern = plan.getRecurrencePattern();
 
-            var dateTask = typeOneStrategy.calculateTaskDate(treatmentDate, recurrencePattern);
-            if (dateTask.isPresent()) {
-                createTask(plan, dateTask.get());
+            var taskDate = typeOneStrategy.calculateTaskDate(treatmentDate, recurrencePattern);
+            if (taskDate.isPresent()) {
+                createTask(plan, taskDate.get());
             }
 
-            var datesTask = typeTwoStrategy.calculateTaskDate(treatmentDate, recurrencePattern);
-            if (datesTask.isPresent()) {
-                Arrays.stream(datesTask.get())
+
+            var taskDates = typeTwoStrategy.calculateTaskDate(treatmentDate, recurrencePattern);
+            if (taskDates.isPresent()) {
+                Arrays.stream(taskDates.get())
                         .forEach(date -> createTask(plan, date));
             }
         }

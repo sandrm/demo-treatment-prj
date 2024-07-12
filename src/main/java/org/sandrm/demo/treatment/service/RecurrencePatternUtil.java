@@ -31,8 +31,8 @@ public class RecurrencePatternUtil {
         Calendar c = Calendar.getInstance();
         c.setTime(treatmentDay);
 
-        c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
-        c.set(Calendar.MINUTE, Integer.valueOf(time[1]));
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
+        c.set(Calendar.MINUTE, Integer.parseInt(time[1]));
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
@@ -41,8 +41,7 @@ public class RecurrencePatternUtil {
 
 
     public static String[] convertHHMM(String time_HH_MM) {
-        String[] time = time_HH_MM.substring(0, 5).split(":");
-        return time;
+        return time_HH_MM.substring(0, 5).split(":");
     }
 
 
