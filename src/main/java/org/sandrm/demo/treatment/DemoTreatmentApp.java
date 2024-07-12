@@ -18,13 +18,10 @@ public class DemoTreatmentApp implements ApplicationRunner {
         SpringApplication.run(DemoTreatmentApp.class, args);
     }
 
-    @Autowired
-    TaskGenerator taskGenerator;
-
     @Override
     public void run(ApplicationArguments args) {
         /*
-         * TODO It can be run by scheduler or in other way instead ApplicationRunner
+         * Processing Recurrence Plans can be run by ApplicationRunner or by scheduler or API
          */
 
         logger.info("DemoTreatmentApp is running!" );
