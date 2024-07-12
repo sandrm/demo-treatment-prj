@@ -1,7 +1,7 @@
 package org.sandrm.demo.treatment;
 
 import org.junit.jupiter.api.Test;
-import org.sandrm.demo.treatment.service.RecurrencePatternParser;
+import org.sandrm.demo.treatment.service.RecurrencePatternUtil;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -19,7 +19,7 @@ public class RecurrencePatternParserTest {
     @Test
     public void test_get_day_name() {
         Date today = new Date();
-        String name = RecurrencePatternParser.getDayName(today);
+        String name = RecurrencePatternUtil.getDayName(today);
 
         assertNotNull(name, "Name should be one day of week!");
         System.out.println(name);

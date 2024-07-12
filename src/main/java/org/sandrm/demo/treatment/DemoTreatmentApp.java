@@ -1,9 +1,7 @@
 package org.sandrm.demo.treatment;
 
-import org.sandrm.demo.treatment.service.TaskGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,13 +16,10 @@ public class DemoTreatmentApp implements ApplicationRunner {
         SpringApplication.run(DemoTreatmentApp.class, args);
     }
 
-    @Autowired
-    TaskGenerator taskGenerator;
-
     @Override
     public void run(ApplicationArguments args) {
         /*
-         * TODO It can be run by scheduler or in other way instead ApplicationRunner
+         * Processing Recurrence Plans can be run by ApplicationRunner or by scheduler or API
          */
 
         logger.info("DemoTreatmentApp is running!" );
